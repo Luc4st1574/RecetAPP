@@ -27,6 +27,10 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setUpRecyclerView()
+        binding.search.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
 
         // Apply system bar padding
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
