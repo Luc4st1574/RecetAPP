@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+    id("kotlin-kapt") // Apply the kotlin-kapt plugin
 }
 
 val kotlin_version = "2.0.0" // Define the kotlin_version variable
@@ -58,5 +59,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
     // other dependencies
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.29")
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
 
+    // To use Kotlin annotation processing tool (kapt)
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

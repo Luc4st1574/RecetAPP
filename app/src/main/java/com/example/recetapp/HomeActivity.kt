@@ -6,11 +6,15 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.example.recetapp.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class HomeActivity : AppCompatActivity() {
+    private lateinit var rvAdapter: PopularAdapter
+    private lateinit var dataLists: ArrayList<Recipe>
     private lateinit var binding: ActivityHomeBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -21,6 +25,8 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setUpRecyclerView()
 
         // Apply system bar padding
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -54,6 +60,26 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()  // Close the current activity
+        }
+    }
+
+    private fun setUpRecyclerView() {
+        dataLists = ArrayList()
+        binding.rvPopular.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        var db = Room.databaseBuilder(this@HomeActivity, AppDatabase::class.java, "db_name")
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .createFromAsset("recipe.db")
+            .build()
+        var daoObject = db.getDao()
+        var recipes = daoObject.getAll()
+        for (i in recipes!!.indices) {
+            if (recipes[i]!!.category.contains("Popular")) {
+                dataLists.add(recipes[i]!!)
+            }
+            rvAdapter = PopularAdapter(dataLists, this)
+            binding.rvPopular.adapter = rvAdapter
         }
     }
 }

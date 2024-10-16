@@ -114,7 +114,7 @@
             android:orientation="vertical"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
-            >
+
 
             <ImageView
                 android:id="@+id/salad"
@@ -236,7 +236,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10"
+        tools:listitem="@layout/popular_rv_item" />
 
     <ImageView
         android:id="@+id/btn_logout"
@@ -250,5 +251,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.028"
         app:srcCompat="@drawable/ic_sign_out" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_popular"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.972"
+        app:srcCompat="@drawable/rectapp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
