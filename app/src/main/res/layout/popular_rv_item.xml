@@ -43,12 +43,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="32dp"
             android:layout_marginBottom="7dp"
             android:fontFamily="@font/poppins"
-            android:maxLength="7"
-            android:text="⏱️ 20 Mins"
+            android:maxLength="20"
+            android:text="20 Mins"
             android:textColor="@color/white"
             android:textSize="11sp" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="bottom"
+            app:srcCompat="@drawable/clock_ic_white" />
     </androidx.cardview.widget.CardView>
 </LinearLayout>
