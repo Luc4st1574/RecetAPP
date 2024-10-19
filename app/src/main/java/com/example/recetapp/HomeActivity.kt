@@ -31,6 +31,33 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
         }
+        binding.salad.setOnClickListener{
+            var myIntent = Intent(this@HomeActivity, CategoryActivity::class.java)
+            myIntent.putExtra("TITTLE", "Ensaladas")  // This is what will be displayed in the tittle TextView
+            myIntent.putExtra("CATEGORY", "Ensalada") // This filters the recipes by category
+            startActivity(myIntent)
+        }
+
+        binding.mainDish.setOnClickListener{
+            var myIntent = Intent(this@HomeActivity, CategoryActivity::class.java)
+            myIntent.putExtra("TITTLE", "Platos Principales")
+            myIntent.putExtra("CATEGORY", "Plato")
+            startActivity(myIntent)
+        }
+
+        binding.drinks.setOnClickListener{
+            var myIntent = Intent(this@HomeActivity, CategoryActivity::class.java)
+            myIntent.putExtra("TITTLE", "Bebidas")
+            myIntent.putExtra("CATEGORY", "Bebidas")
+            startActivity(myIntent)
+        }
+
+        binding.dessert.setOnClickListener{
+            var myIntent = Intent(this@HomeActivity, CategoryActivity::class.java)
+            myIntent.putExtra("TITTLE", "Postres")
+            myIntent.putExtra("CATEGORY", "Postres")
+            startActivity(myIntent)
+        }
 
         // Apply system bar padding
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->

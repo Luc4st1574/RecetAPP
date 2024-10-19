@@ -135,12 +135,12 @@
                 android:layout_marginBottom="-23dp"
                 android:fontFamily="@font/poppins_light"
                 android:gravity="center"
-                android:text="Ensaladas"
+                android:text="Ensalada"
                 android:textColor="@color/black"
                 android:textSize="17sp" />
 
             <ImageView
-                android:id="@+id/MainDish"
+                android:id="@+id/mainDish"
                 style="@style/my_style"
                 android:layout_marginStart="17dp"
                 android:layout_toEndOf="@id/salad"
@@ -151,16 +151,16 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/MainDish"
-                android:layout_alignStart="@id/MainDish"
-                android:layout_alignEnd="@id/MainDish"
+                android:layout_below="@id/mainDish"
+                android:layout_alignStart="@id/mainDish"
+                android:layout_alignEnd="@id/mainDish"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="3dp"
                 android:layout_marginEnd="1dp"
                 android:layout_marginBottom="-23dp"
                 android:fontFamily="@font/poppins_light"
                 android:gravity="center"
-                android:text="Almuerzos"
+                android:text="Principal"
                 android:textColor="@color/black"
                 android:textSize="17sp" />
 
@@ -168,7 +168,7 @@
                 android:id="@+id/drinks"
                 style="@style/my_style"
                 android:layout_marginStart="17dp"
-                android:layout_toEndOf="@id/MainDish"
+                android:layout_toEndOf="@id/mainDish"
                 android:background="@drawable/category_card_bc"
                 app:srcCompat="@drawable/catergory_drinks" />
 
