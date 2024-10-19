@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".RecipeActivity">
 
     <ImageView
@@ -102,7 +103,7 @@
             android:text="30 mins" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/ing"
             android:layout_width="150dp"
             android:layout_height="42sp"
             android:layout_alignParentStart="true"
@@ -115,8 +116,29 @@
             android:paddingRight="20sp"
             android:text="Ingredientes" />
 
-        <Button
+        <ScrollView
 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ing"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:padding="10sp">
+
+            <TextView
+                android:id="@+id/ing_data"
+                android:layout_gravity="center_horizontal"
+                android:lineSpacingExtra="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:fontFamily="@font/poppins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/step"
             android:layout_width="150dp"
             android:layout_height="42sp"
             android:layout_alignParentEnd="true"
@@ -128,6 +150,29 @@
             android:paddingLeft="20sp"
             android:paddingRight="20sp"
             android:text="Pasos" />
+
+        <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/step"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:padding="10sp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/step_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/poppins"
+                android:lineSpacingExtra="10dp"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+        </ScrollView>
+        
 
     </RelativeLayout>
 

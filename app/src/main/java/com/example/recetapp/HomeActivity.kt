@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var rvAdapter: PopularAdapter
-    private lateinit var dataLists: ArrayList<Recipe>
+    private lateinit var dataList: ArrayList<Recipe>
     private lateinit var binding: ActivityHomeBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
@@ -95,7 +95,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setUpRecyclerView() {
-        dataLists = ArrayList()
+        dataList = ArrayList()
         binding.rvPopular.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         var db = Room.databaseBuilder(this@HomeActivity, AppDatabase::class.java, "db_name")
@@ -107,9 +107,9 @@ class HomeActivity : AppCompatActivity() {
         var recipes = daoObject.getAll()
         for (i in recipes!!.indices) {
             if (recipes[i]!!.category.contains("Popular")) {
-                dataLists.add(recipes[i]!!)
+                dataList.add(recipes[i]!!)
             }
-            rvAdapter = PopularAdapter(dataLists, this)
+            rvAdapter = PopularAdapter(dataList, this)
             binding.rvPopular.adapter = rvAdapter
         }
     }
