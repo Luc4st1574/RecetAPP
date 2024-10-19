@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecipeActivity">
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:background="#F6F6F6"
+        android:hapticFeedbackEnabled="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/pizza_sample" />
+
+    <ImageView
+        android:id="@+id/shade"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_image"
+        app:layout_constraintEnd_toEndOf="@+id/item_image"
+        app:layout_constraintStart_toStartOf="@+id/item_image"
+        app:srcCompat="@drawable/image_btm_overlay" />
+
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/card_back_btn"
+        android:clickable="true"
+        android:foregroundGravity="center"
+        android:hapticFeedbackEnabled="true"
+        android:padding="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/item_image"
+        app:srcCompat="@drawable/back_icon" />
+
+    <ImageView
+        android:id="@+id/full_screen"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/back_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/back_btn"
+        app:srcCompat="@drawable/full_size_ic"
+        android:padding="4dp"
+        android:clickable="true"
+        android:foregroundGravity="center"
+        android:hapticFeedbackEnabled="true"
+        app:tint="@color/white"/>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="-10dp"
+        android:background="@drawable/card_recipe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_image">
+
+        <TextView
+            android:id="@+id/tittle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="45dp"
+            android:fontFamily="@font/poppins"
+            android:text="I am sample tittle"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/clock"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_below="@id/tittle"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/clock_icon"
+            app:tint="#e82f3d" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_below="@id/tittle"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="3dp"
+            android:layout_toEndOf="@id/clock"
+            android:gravity="center_vertical"
+            android:text="30 mins" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="150dp"
+            android:layout_height="42sp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/tittle"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="34dp"
+            android:background="@drawable/btn_ing"
+            android:fontFamily="@font/poppins"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            android:text="Ingredientes" />
+
+        <Button
+
+            android:layout_width="150dp"
+            android:layout_height="42sp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/tittle"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="34dp"
+            android:background="@drawable/btn_ing"
+            android:fontFamily="@font/poppins"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp"
+            android:text="Pasos" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+        app:layout_constraintTop_toTopOf="@+id/relativeLayout"
+        app:srcCompat="@drawable/scroll_up" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
