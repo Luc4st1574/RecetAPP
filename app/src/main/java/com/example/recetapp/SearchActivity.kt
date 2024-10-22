@@ -1,10 +1,8 @@
 package com.example.recetapp
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -44,7 +42,7 @@ class SearchActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
             recipes = daoObject.getAll() ?: emptyList()
 
-            // Once the data is fetched, update UI on the main thread
+            // Once the data is fetched, update UI on the go_up thread
             withContext(Dispatchers.Main) {
                 setUpRecyclerView()
             }
@@ -76,7 +74,7 @@ class SearchActivity : AppCompatActivity() {
 
 
         // Handle window insets for edge-to-edge design
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.go_up)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets

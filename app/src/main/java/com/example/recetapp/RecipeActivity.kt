@@ -3,6 +3,7 @@ package com.example.recetapp
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ class RecipeActivity : AppCompatActivity() {
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+        binding.step.setTextColor(getColor(R.color.black))
 
         Glide.with(this).load(intent.getStringExtra("img")).into(binding.itemImage)
         binding.tittle.text = intent.getStringExtra("tittle")
@@ -28,12 +30,32 @@ class RecipeActivity : AppCompatActivity() {
         binding.time.text = ing?.get(0)
 
         for (i in 1 until ing!!.size) {
-                binding.ingData.text = """${binding.ingData.text} 🔴 ${ing[i]}""".trimIndent()
+                binding.ingData.text = """${binding.ingData.text} 🔴 ${ing[i]}
+                    
+                """.trimIndent()
         }
         binding.step.background= null
         
+        binding.step.setOnClickListener{
+            binding.step.setBackgroundResource(R.drawable.btn_ing)
+            binding.step.setTextColor(getColor(R.color.white))
+            binding.ing.setTextColor(getColor(R.color.black))
+            binding.ing.background = null
+            binding.stepScroll.visibility = View.VISIBLE
+            binding.ingScroll.visibility = View.GONE
+        }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        binding.ing.setOnClickListener{
+            binding.ing.setBackgroundResource(R.drawable.btn_ing)
+            binding.ing.setTextColor(getColor(R.color.white))
+            binding.step.setTextColor(getColor(R.color.black))
+            binding.step.background = null
+            binding.ingScroll.visibility = View.VISIBLE
+            binding.stepScroll.visibility = View.GONE
+        }
+        
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.go_up)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
