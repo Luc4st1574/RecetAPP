@@ -2,7 +2,7 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/go_up"
+    android:id="@+id/motion_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -41,6 +41,7 @@
         android:foregroundGravity="center"
         android:hapticFeedbackEnabled="true"
         android:padding="4dp"
+        android:contentDescription="Go back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/item_image"
         app:srcCompat="@drawable/back_icon" />
@@ -54,6 +55,7 @@
         android:foregroundGravity="center"
         android:hapticFeedbackEnabled="true"
         android:padding="4dp"
+        android:contentDescription="Full screen mode"
         app:layout_constraintBottom_toBottomOf="@+id/back_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/back_btn"
@@ -64,12 +66,12 @@
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="240dp"
         android:background="@drawable/card_recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_image">
+        app:layout_constraintTop_toTopOf="@+id/item_image">
 
         <TextView
             android:id="@+id/tittle"
@@ -118,7 +120,6 @@
             android:text="Ingredientes" />
 
         <ScrollView
-
             android:id="@+id/ing_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -154,7 +155,6 @@
             android:text="Pasos" />
 
         <ScrollView
-
             android:id="@+id/step_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -176,17 +176,20 @@
 
         </ScrollView>
 
-
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/btn_up"
+        android:id="@+id/go_up"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/relativeLayout"
+        android:elevation="10dp"
+        android:tint="@color/black"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/relativeLayout"
-        app:srcCompat="@drawable/scroll_up" />
+        app:srcCompat="@drawable/scroll_up"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

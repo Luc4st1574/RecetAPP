@@ -8,7 +8,7 @@
         motion:constraintSetStart="@+id/start"
         motion:duration="500">
         <OnClick
-            motion:target="@id/go_up" />
+            motion:targetId="@id/go_up" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">
@@ -17,28 +17,28 @@
     <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@+id/item_image"
-            motion:layout_constrainEnd_toEndOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"/>
+            motion:layout_constraintStart_toStartOf="parent" />
         <Constraint
             android:id="@+id/relativeLayout"
-            motion:layout_constrainEnd_toEndOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             motion:layout_constraintHorizontal_bias="0.0"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="100dp"/>
+            android:layout_marginTop="100dp" />
         <Constraint
             android:id="@+id/shade"
-            motion:layout_constrainEnd_toEndOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             motion:layout_constraintBottom_toBottomOf="@+id/recipe_img"
             motion:layout_constraintStart_toStartOf="parent"
-            android:alpha="0"/>
+            android:alpha="0" />
         <Constraint
             android:id="@+id/back_btn"
             android:layout_width="50dp"
@@ -46,16 +46,16 @@
             android:layout_marginStart="20dp"
             motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="24dp"/>
+            android:layout_marginTop="24dp" />
         <Constraint
             android:id="@+id/go_up"
-            motion:layout_constrainEnd_toEndOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="50dp"
             android:layout_height="50dp"
             motion:layout_constraintTop_toTopOf="@+id/relativeLayout"
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
             android:rotation="180"
-            android:layout_marginEnd="15dp"/>
+            android:layout_marginEnd="15dp" />
     </ConstraintSet>
 </MotionScene>
