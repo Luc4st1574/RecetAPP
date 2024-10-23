@@ -43,8 +43,8 @@ class RegisterActivity : AppCompatActivity() {
                                 it.updateProfile(profileUpdates)
                                     .addOnCompleteListener { updateTask ->
                                         if (updateTask.isSuccessful) {
-                                            // User's profile updated successfully
-                                            val intent = Intent(this, LoginActivity::class.java)
+                                            // Redirect to HomeActivity after profile update
+                                            val intent = Intent(this, HomeActivity::class.java)
                                             startActivity(intent)
                                             finish()  // Close RegisterActivity
                                         } else {
