@@ -72,10 +72,9 @@ class HomeActivity : AppCompatActivity() {
         // Get the current logged-in user
         val currentUser: FirebaseUser? = firebaseAuth.currentUser
         if (currentUser != null) {
-            // Extract the username from the email before '@'
-            val email = currentUser.email
-            val username = email?.substringBefore("@")
-            binding.lblUser.text = "$username"
+            // Use the display name (set during registration) instead of parsing the email
+            val username = currentUser.displayName
+            binding.lblUser.text = username
         } else {
             // If the user is not logged in, redirect to LoginActivity
             val intent = Intent(this, LoginActivity::class.java)
