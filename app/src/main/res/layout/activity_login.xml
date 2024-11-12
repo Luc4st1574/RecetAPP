@@ -35,11 +35,14 @@
 
     <Button
         android:id="@+id/btn_google_sign_in"
+        app:icon="@drawable/glogo"
+        app:iconSize="20dp"
+        app:iconGravity="start"
+        app:iconPadding="1dp"
+        app:iconTint="@color/purple_500"
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:backgroundTint="@color/white"
-        android:drawableStart="@drawable/glogo"
-        android:drawablePadding="8dp"
         android:gravity="center"
         android:paddingStart="16dp"
         android:text="SIGN IN WITH GOOGLE"

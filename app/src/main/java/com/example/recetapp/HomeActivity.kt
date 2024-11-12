@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.bumptech.glide.Glide
 import com.example.recetapp.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -27,37 +28,7 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setUpRecyclerView()
-        binding.search.setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
-        }
-        binding.salad.setOnClickListener{
-            var myIntent = Intent(this@HomeActivity, CategoryActivity::class.java)
-            myIntent.putExtra("TITTLE", "Ensaladas")  // This is what will be displayed in the tittle TextView
-            myIntent.putExtra("CATEGORY", "Ensalada") // This filters the recipes by category
-            startActivity(myIntent)
-        }
-
-        binding.mainDish.setOnClickListener{
-            var myIntent = Intent(this@HomeActivity, CategoryActivity::class.java)
-            myIntent.putExtra("TITTLE", "Platos Principales")
-            myIntent.putExtra("CATEGORY", "Plato")
-            startActivity(myIntent)
-        }
-
-        binding.drinks.setOnClickListener{
-            var myIntent = Intent(this@HomeActivity, CategoryActivity::class.java)
-            myIntent.putExtra("TITTLE", "Bebidas")
-            myIntent.putExtra("CATEGORY", "Bebidas")
-            startActivity(myIntent)
-        }
-
-        binding.dessert.setOnClickListener{
-            var myIntent = Intent(this@HomeActivity, CategoryActivity::class.java)
-            myIntent.putExtra("TITTLE", "Postres")
-            myIntent.putExtra("CATEGORY", "Postres")
-            startActivity(myIntent)
-        }
+        setupCategoryButtons()
 
         // Apply system bar padding
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.go_up)) { v, insets ->
@@ -68,48 +39,103 @@ class HomeActivity : AppCompatActivity() {
 
         // Initialize FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance()
-
-        // Get the current logged-in user
         val currentUser: FirebaseUser? = firebaseAuth.currentUser
         if (currentUser != null) {
-            // Use the display name (set during registration) instead of parsing the email
-            val username = currentUser.displayName
-            binding.lblUser.text = username
+            displayUserInfo(currentUser)
         } else {
-            // If the user is not logged in, redirect to LoginActivity
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
+            redirectToLogin()
         }
 
         // Set up the logout button
         binding.btnLogout.setOnClickListener {
-            // Sign out from FirebaseAuth
             firebaseAuth.signOut()
-            // Redirect to LoginActivity after signing out
-            val intent = Intent(this, LoginActivity::class.java)
+            redirectToLogin()
+        }
+    }
+
+    private fun displayUserInfo(user: FirebaseUser) {
+        // Display the user's display name or a default value
+        val username = user.displayName ?: "User"
+        binding.lblUser.text = username
+
+        // Display the user's profile picture or a default placeholder
+        val photoUrl = user.photoUrl
+        if (photoUrl != null) {
+            // Use Glide to load the profile picture into the ImageView
+            Glide.with(this)
+                .load(photoUrl)  // your image URL or resource
+                .placeholder(R.drawable.ic_user) // default placeholder
+                .error(R.drawable.ic_user) // error placeholder
+                .circleCrop() // Apply circular crop to make it rounded
+                .into(binding.profileImage)
+        } else {
+            // Set a default image if the user doesn't have a profile picture
+            binding.profileImage.setImageResource(R.drawable.ic_user)
+        }
+    }
+
+    private fun redirectToLogin() {
+        // Redirect to LoginActivity and clear the activity stack
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
+
+    private fun setupCategoryButtons() {
+        binding.search.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
-            finish()  // Close the current activity
+        }
+        binding.salad.setOnClickListener {
+            val intent = Intent(this@HomeActivity, CategoryActivity::class.java)
+            intent.putExtra("TITTLE", "Ensaladas")
+            intent.putExtra("CATEGORY", "Ensalada")
+            startActivity(intent)
+        }
+
+        binding.mainDish.setOnClickListener {
+            val intent = Intent(this@HomeActivity, CategoryActivity::class.java)
+            intent.putExtra("TITTLE", "Platos Principales")
+            intent.putExtra("CATEGORY", "Plato")
+            startActivity(intent)
+        }
+
+        binding.drinks.setOnClickListener {
+            val intent = Intent(this@HomeActivity, CategoryActivity::class.java)
+            intent.putExtra("TITTLE", "Bebidas")
+            intent.putExtra("CATEGORY", "Bebidas")
+            startActivity(intent)
+        }
+
+        binding.dessert.setOnClickListener {
+            val intent = Intent(this@HomeActivity, CategoryActivity::class.java)
+            intent.putExtra("TITTLE", "Postres")
+            intent.putExtra("CATEGORY", "Postres")
+            startActivity(intent)
         }
     }
 
     private fun setUpRecyclerView() {
         dataList = ArrayList()
-        binding.rvPopular.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        var db = Room.databaseBuilder(this@HomeActivity, AppDatabase::class.java, "db_name")
+        binding.rvPopular.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        // Initialize Room database and fetch data
+        val db = Room.databaseBuilder(this, AppDatabase::class.java, "db_name")
             .allowMainThreadQueries()
             .fallbackToDestructiveMigration()
             .createFromAsset("recipe.db")
             .build()
-        var daoObject = db.getDao()
-        var recipes = daoObject.getAll()
-        for (i in recipes!!.indices) {
-            if (recipes[i]!!.category.contains("Popular")) {
-                dataList.add(recipes[i]!!)
+
+        val daoObject = db.getDao()
+        val recipes = daoObject.getAll()?.filterNotNull() ?: emptyList()  // Ensure non-null items in the list
+        for (recipe in recipes) {
+            if (recipe.category.contains("Popular")) {
+                dataList.add(recipe)
             }
-            rvAdapter = PopularAdapter(dataList, this)
-            binding.rvPopular.adapter = rvAdapter
         }
+
+        rvAdapter = PopularAdapter(dataList, this)
+        binding.rvPopular.adapter = rvAdapter
     }
 }
