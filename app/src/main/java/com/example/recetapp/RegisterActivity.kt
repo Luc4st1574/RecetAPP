@@ -1,10 +1,7 @@
 package com.example.recetapp
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -19,9 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
-import java.security.MessageDigest
 import com.google.android.gms.tasks.Task
-import java.util.UUID
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
@@ -60,15 +55,15 @@ class RegisterActivity : AppCompatActivity() {
                                     .setDisplayName(username)
                                     .build()
 
-                                it.updateProfile(profileUpdates)
-                                    .addOnCompleteListener { updateTask ->
-                                        if (updateTask.isSuccessful) {
-                                            startActivity(Intent(this, HomeActivity::class.java))
-                                            finish()  // Close RegisterActivity
-                                        } else {
-                                            binding.lblError.text = "Profile update failed"
-                                        }
+                                it.updateProfile(profileUpdates).addOnCompleteListener { updateTask ->
+                                    if (updateTask.isSuccessful) {
+                                        // Redirect to SmsActivity after successful registration
+                                        startActivity(Intent(this, SmsActivity::class.java))
+                                        finish()
+                                    } else {
+                                        binding.lblError.text = "Profile update failed"
                                     }
+                                }
                             }
                         } else {
                             binding.lblError.text = "Registration failed"
@@ -80,7 +75,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         // Set OnClickListener for Google Sign-In Button
-        findViewById<Button>(R.id.btn_google_sign_in).setOnClickListener {
+        binding.btnGoogleSignUp.setOnClickListener {
             signInGoogle()
         }
 
@@ -92,8 +87,7 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         // Set OnClickListener for login label
-        val loginLabel: TextView = findViewById(R.id.lbl_login)
-        loginLabel.setOnClickListener {
+        binding.lblLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
     }
@@ -124,30 +118,17 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    // Sign in to Firebase with Google credentials
+    // Sign in to Firebase with Google credentials and navigate to SmsActivity
     private fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val intent = Intent(this, HomeActivity::class.java)
-                intent.putExtra("email", account.email)
-                intent.putExtra("name", account.displayName)
-
-                startActivity(intent)
+                // Redirect to SmsActivity after successful Google sign-in
+                startActivity(Intent(this, SmsActivity::class.java))
                 finish() // Close RegisterActivity
             } else {
                 Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    // Helper function to create a secure nonce
-    fun createNonce(): String {
-        val rawNonce = UUID.randomUUID().toString()
-        val bytes = rawNonce.toByteArray()
-        val md = MessageDigest.getInstance("SHA-256")
-        val digest = md.digest(bytes)
-
-        return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 }
